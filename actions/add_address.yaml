@@ -1,0 +1,53 @@
+# phpipam/actions/add_address.yaml
+---
+name: add_address
+runner_type: "python-script"
+description: "Add address to phpipam"
+enabled: true
+entry_point: add_address.py
+parameters:
+    ip_addr:
+        type: string
+        description: "address"
+        required: true
+    description:
+        type: string
+        description: "Description for the address"
+    hostname:
+        type: string
+        description: "hostname"
+    subnet_cidr:
+        type: string
+        description: "Subnet CIDR notation"
+        required: true
+    section:
+        type: string
+        description: "Section Name"
+        required: true
+    is_gateway:
+        type: string
+        description: "is a gateway"
+        required: true
+        default: "0"
+    tag:
+        type: string
+        description: "tag"
+        required: true
+        default: "Used"
+        enum:
+            - Offline
+            - Used
+            - Reserved
+            - DHCP
+    mac:
+        type: string
+        description: "address MAC"
+    owner:
+        type: string
+        description: "address owner"
+    device:
+        type: string
+        description: "address sevice"
+    note:
+        type: string
+        description: "address note"

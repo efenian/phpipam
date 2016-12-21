@@ -1,0 +1,20 @@
+# phpipam/actions/del_address.yaml
+---
+name: del_address
+runner_type: "python-script"
+description: "Delete addresses from subnet in phpipam"
+enabled: true
+entry_point: del_address.py
+parameters:
+    section:
+        type: "string"
+        description: "The Section Name"
+        required: true
+    subnet_cidr:
+        type: "string"
+        description: "The Subnet CIDR Notation"
+        required: true
+    ip_addr:
+        type: "string"
+        description: "The address to delete"
+        required: true

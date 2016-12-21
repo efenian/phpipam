@@ -1,0 +1,24 @@
+# phpipam/actions/add_vlan.yaml
+---
+name: add_vlan
+runner_type: "python-script"
+description: "Add vlan to phpipam"
+enabled: true
+entry_point: add_vlan.py
+parameters:
+    name:
+        type: string
+        description: "vlan Name"
+        required: true
+    number:
+        type: string
+        description: "vlan Number"
+        required: true
+    description:
+        type: string
+        description: "Description for the vlan"
+    l2domain:
+        type: string
+        description: "Layer 2 domain name"
+
+

@@ -1,0 +1,20 @@
+---
+    api_uri:
+        decription: "The URI of the phpipam API"
+        type: "string"
+        required: true
+    api_username:
+        description: "The API username"
+        type: "string"
+        required: true
+        secret: true
+    api_password:
+        description: "The API password"
+        type: "string"
+        required: true
+        secret: true
+    api_verify_ssl:
+        description: "Disable SSL verification for self signed certificates"
+        type: "boolean"
+        default: True
+

@@ -1,0 +1,56 @@
+# phpipam/actions/add_section.yaml
+---
+name: add_section
+runner_type: "python-script"
+description: "Add section to phpipam"
+enabled: true
+entry_point: add_section.py
+parameters:
+    name:
+        type: string
+        description: "section Name"
+        required: true
+    description:
+        type: string
+        description: "Description for the section"
+    operator_permissions:
+        type: string
+        description: "Operator Permissions"
+        required: true
+        enum:
+            - na
+            - ro
+            - rw
+            - rwa
+    group_permissions:
+        type: string
+        description: "Group Permissions"
+        required: true
+        enum:
+            - na
+            - ro
+            - rw
+            - rwa
+    master_section:
+        type: string
+        description: "Parent section if nested"
+    vlan:
+        type: string
+        description: "Display VLANs"
+    vrf:
+        type: string
+        description: "Display VRFs"
+    strict_mode:
+        type: string
+        description: "Strict Mode"
+        default: "1"
+    ordering:
+        type: string
+        description: "Subnet Ordering"
+        default: "default"
+        enum:
+            - default
+            - subnet,asc
+            - subnet,desc
+            - description,asc
+            - description,desc

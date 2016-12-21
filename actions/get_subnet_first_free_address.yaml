@@ -1,0 +1,16 @@
+# phpipam/actions/get_subnet_first_free_address.yaml
+---
+name: get_subnet_first_free_address
+runner_type: "python-script"
+description: "Get the first free address from subnet in phpipam"
+enabled: true
+entry_point: get_subnet_first_free_address.py
+parameters:
+    section:
+        type: "string"
+        description: "The Section Name"
+        required: true
+    subnet_cidr:
+        type: "string"
+        description: "The Subnet CIDR Notation"
+        required: true

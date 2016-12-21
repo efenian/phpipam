@@ -1,0 +1,69 @@
+# phpipam/actions/add_subnet.yaml
+---
+name: add_subnet
+runner_type: "python-script"
+description: "Add subnet to phpipam"
+enabled: true
+entry_point: add_subnet.py
+parameters:
+    subnet:
+        type: string
+        description: "subnet"
+        required: true
+    mask:
+        type: string
+        description: "subnet mask"
+        required: true
+    description:
+        type: string
+        description: "Description for the subnet"
+    section:
+        type: string
+        description: "section name"
+        required: true
+    master_subnet:
+        type: string
+        description: "master subnet cidr"
+    vlan:
+        type: string
+        description: "vlan number"
+    l2domain:
+        type: string
+        description: "layer 2 domain"
+    show_name:
+        type: string
+        description: "show by name instead of subnet"
+    device:
+        type: string
+        description: "device name"
+    operator_permissions:
+        type: string
+        description: "Operator Permissions"
+        required: true
+        enum:
+            - na
+            - ro
+            - rw
+            - rwa
+    group_permissions:
+        type: string
+        description: "Group Permissions"
+        required: true
+        enum:
+            - na
+            - ro
+            - rw
+            - rwa
+    ping_subnet:
+        type: string
+        description: "ping sweep subnet or not"
+    discover_subnet:
+        type: string
+        description: "discover new hosts in subnet or not"
+    scan_agent:
+        type: string
+        description: "scan agent id"
+    full:
+        type: string
+        description: "mark subnet as full"
+

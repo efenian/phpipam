@@ -1,0 +1,7 @@
+# phpipam/actions/list_sections.yaml
+---
+name: list_sections
+runner_type: "python-script"
+description: "List sections in phpipam"
+enabled: true
+entry_point: list_sections.py

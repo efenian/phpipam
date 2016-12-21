@@ -1,0 +1,6 @@
+---
+    api_uri: "https://10.10.10.10/api/app/"
+    api_username: "admin" 
+    api_password: "password"
+    api_verify_ssl: False
+

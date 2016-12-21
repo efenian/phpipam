@@ -1,0 +1,16 @@
+# phpipam/actions/del_subnet.yaml
+---
+name: del_subnet
+runner_type: "python-script"
+description: "Delete subnet in phpipam"
+enabled: true
+entry_point: del_subnet.py
+parameters:
+    section:
+        type: "string"
+        description: "The Section Name"
+        required: true
+    subnet_cidr:
+        type: "string"
+        description: "The Subnet CIDR Notation"
+        required: true

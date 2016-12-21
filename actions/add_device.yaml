@@ -1,0 +1,42 @@
+# phpipam/actions/add_device.yaml
+---
+name: add_device
+runner_type: "python-script"
+description: "Add device to phpipam"
+enabled: true
+entry_point: add_device.py
+parameters:
+    hostname:
+        type: string
+        description: "Device Name"
+        required: true
+    ip_addr:
+        type: string
+        description: "Device IP Address"
+        required: true
+    devicetype:
+        type: string
+        description: "Device Type"
+        required: true
+        enum:
+            - Switch
+            - Router
+            - Firewall
+            - Hub
+            - Wireless
+            - Database
+            - Workstation
+            - Laptop
+            - Other
+    vendor:
+        type: string
+        description: "Device Vendor"
+    model:
+        type: string
+        description: "Device Model"
+    sections:
+        type: string
+        description: "Sections to Display Device (Section1;Section2;Etc...)"
+    description:
+        type: string
+        description: "Description for the Device"

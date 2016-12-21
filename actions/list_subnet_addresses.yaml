@@ -1,0 +1,16 @@
+# phpipam/actions/list_subnet_addresses.yaml
+---
+name: list_subnet_addresses
+runner_type: "python-script"
+description: "List addresses from subnet in phpipam"
+enabled: true
+entry_point: list_subnet_addresses.py
+parameters:
+    section:
+        type: "string"
+        description: "The Section Name"
+        required: true
+    subnet_cidr:
+        type: "string"
+        description: "The Subnet CIDR Notation"
+        required: true

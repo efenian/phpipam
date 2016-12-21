@@ -1,0 +1,7 @@
+# phpipam/actions/list_vlans.yaml
+---
+name: list_vlans
+runner_type: "python-script"
+description: "List vlans in phpipam"
+enabled: true
+entry_point: list_vlans.py
