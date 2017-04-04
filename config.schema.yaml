@@ -1,6 +1,6 @@
 ---
     api_uri:
-        decription: "The URI of the phpipam API"
+        description: "The URI of the phpipam API"
         type: "string"
         required: true
     api_username:
