@@ -1,0 +1,21 @@
+# phpipam/actions/add_vrf.yaml
+---
+name: add_vrf
+runner_type: "python-script"
+description: "add vrf to phpipam"
+enabled: true
+entry_point: add_vrf.py
+parameters:
+    name:
+        type: string
+        description: "vrf name"
+        required: true
+    rd:
+        type: string
+        description: "route distinguisher"
+    sections:
+        type: string
+        description: "sections to display device (Section1;Section2;Etc...)"
+    description:
+        type: string
+        description: "description for the vrf"

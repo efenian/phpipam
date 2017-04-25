@@ -24,5 +24,5 @@ class ListVlans(Action):
 
         ipam.logout()
 
-        return vlans
+        return vlanlist
 

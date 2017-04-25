@@ -1,0 +1,7 @@
+# phpipam/actions/list_vrfs.yaml
+---
+name: list_vrfs
+runner_type: "python-script"
+description: "list vrfs in phpipam"
+enabled: true
+entry_point: list_vrfs.py

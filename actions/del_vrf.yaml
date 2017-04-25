@@ -1,0 +1,12 @@
+# phpipam/actions/del_vrf.yaml
+---
+name: del_vrf
+runner_type: "python-script"
+description: "delete vrf from phpipam"
+enabled: true
+entry_point: del_vrf.py
+parameters:
+    name:
+        type: string
+        description: "vrf name"
+        required: true

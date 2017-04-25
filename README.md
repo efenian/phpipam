@@ -155,3 +155,14 @@ st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_ad
 ```sh
 st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2"
 ```
+
+### Add/List/Remove VRF:
+
+```sh
+st2 run phpipam.add_vrf name="TENANT1" rd="100:100" description="Core VRF" sections="Customers;IPv6"
+```
+
+```sh
+st2 run phpipam.list_vrfs
+```
+

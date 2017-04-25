@@ -5,7 +5,7 @@ warnings.filterwarnings('ignore')
 
 from st2actions.runners.pythonrunner import Action
 
-class ListL2domains(Action):
+class ListVrfs(Action):
     """ Stackstorm Python Runner """
     def run(self):
         """ Stackstorm Run Method  """
@@ -15,14 +15,15 @@ class ListL2domains(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = lib.phpipam.PhpIpamApi(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(
+            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)
+        vrfs_api = lib.phpipam.controllers.VRFsApi(phpipam=ipam)
 
-        l2domainlist = l2domains_api.list_l2domains()
+        vrflist = vrfs_api.list_vrfs()
 
         ipam.logout()
 
-        return l2domainlist
+        return vrflist
 
