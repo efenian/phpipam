@@ -2,6 +2,6 @@
 ---
 name: list_l2domains
 runner_type: "python-script"
-description: "List l2domains in phpipam"
+description: "list l2domains in phpipam"
 enabled: true
 entry_point: list_l2domains.py

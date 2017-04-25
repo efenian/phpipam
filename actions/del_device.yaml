@@ -2,11 +2,11 @@
 ---
 name: del_device
 runner_type: "python-script"
-description: "Delete device from phpipam"
+description: "delete device from phpipam"
 enabled: true
 entry_point: del_device.py
 parameters:
     hostname:
         type: string
-        description: "Device Name"
+        description: "device name"
         required: true

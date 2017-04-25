@@ -2,7 +2,7 @@
 ---
 name: add_subnet
 runner_type: "python-script"
-description: "Add subnet to phpipam"
+description: "add subnet to phpipam"
 enabled: true
 entry_point: add_subnet.py
 parameters:
@@ -16,7 +16,7 @@ parameters:
         required: true
     description:
         type: string
-        description: "Description for the subnet"
+        description: "description for the subnet"
     section:
         type: string
         description: "section name"
@@ -38,7 +38,7 @@ parameters:
         description: "device name"
     operator_permissions:
         type: string
-        description: "Operator Permissions"
+        description: "operator permissions"
         required: true
         enum:
             - na
@@ -47,7 +47,7 @@ parameters:
             - rwa
     group_permissions:
         type: string
-        description: "Group Permissions"
+        description: "group permissions"
         required: true
         enum:
             - na

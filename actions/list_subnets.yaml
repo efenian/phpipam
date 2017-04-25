@@ -2,11 +2,11 @@
 ---
 name: list_subnets
 runner_type: "python-script"
-description: "List subnets in phpipam"
+description: "list subnets in phpipam"
 enabled: true
 entry_point: list_subnets.py
 parameters:
     section:
         type: "string"
-        description: "The Section Name"
+        description: "section name"
         required: true

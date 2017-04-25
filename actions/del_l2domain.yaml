@@ -2,11 +2,11 @@
 ---
 name: del_l2domain
 runner_type: "python-script"
-description: "Delete l2domain from phpipam"
+description: "delete l2domain from phpipam"
 enabled: true
 entry_point: del_l2domain.py
 parameters:
     name:
         type: string
-        description: "l2domain Name"
+        description: "l2domain name"
         required: true

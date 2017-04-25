@@ -2,21 +2,21 @@
 ---
 name: add_device
 runner_type: "python-script"
-description: "Add device to phpipam"
+description: "add device to phpipam"
 enabled: true
 entry_point: add_device.py
 parameters:
     hostname:
         type: string
-        description: "Device Name"
+        description: "device name"
         required: true
     ip_addr:
         type: string
-        description: "Device IP Address"
+        description: "device IP address"
         required: true
     devicetype:
         type: string
-        description: "Device Type"
+        description: "device type"
         required: true
         enum:
             - Switch
@@ -30,13 +30,13 @@ parameters:
             - Other
     vendor:
         type: string
-        description: "Device Vendor"
+        description: "device vendor"
     model:
         type: string
-        description: "Device Model"
+        description: "device model"
     sections:
         type: string
-        description: "Sections to Display Device (Section1;Section2;Etc...)"
+        description: "sections to display device (Section1;Section2;Etc...)"
     description:
         type: string
-        description: "Description for the Device"
+        description: "description for the device"

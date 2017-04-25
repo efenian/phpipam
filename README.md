@@ -5,7 +5,7 @@ Stackstorm pack for {php}IPAM
 Here is what you need:
 
   - [Stackstorm](https://docs.stackstorm.com/install/index.html#installation)
-  - [{php}IPAM](http://phpipam.net/documents/download-phpipam/)
+  - [{php}IPAM 1.2](http://phpipam.net/documents/download-phpipam/) (you can try my [vagrant](https://github.com/efenian/phpipamvagrant) as well)
 
 You will have to enable the phpipam API and have mod_rewrite working.
 
@@ -15,7 +15,7 @@ The phpipam API configuration should be placed in the phpipam.yaml file in the s
 
 ```yaml
 ---
-    api_uri: "https://10.10.10.10/api/app/"
+    api_uri: "https://192.168.16.30/api/app/"
     api_username: "admin"
     api_password: "password"
     api_verify_ssl: False
@@ -26,7 +26,7 @@ The phpipam API configuration should be placed in the phpipam.yaml file in the s
 #### Add/List/Remove device(s):
 
 ```sh
-st2 run phpipam.add_device hostname="VDX-6740-RB1" ip_addr="198.18.0.1" devicetype="Router" model="VDX-6740T" vendor="Brocade" sections="IPv4;IPv6"
+st2 run phpipam.add_device hostname="VDX-6740-RB1" ip_addr="198.18.0.1" devicetype="Switch" model="VDX-6740T" vendor="Brocade" sections="Customers;IPv6"
 ```
 
 ```sh
@@ -42,7 +42,6 @@ st2 run phpipam.del_device hostname="VDX-6740-RB1"
 ```sh
 st2 run phpipam.add_l2domain name="dc1" description="my new datacenter"
 ```
-
 
 ```sh
 st2 run phpipam.list_l2domains
@@ -84,36 +83,52 @@ st2 run phpipam.list_sections
 st2 run phpipam.del_section name="child"
 ```
 
+```sh
+ st2 run phpipam.del_section name="parent"
+```
+
 #### Add/List/Remove Subnet(s):
 
 ```sh
-st2 run phpipam.add_subnet subnet="172.16.0.0" mask="12" section="IPv4" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
+st2 run phpipam.add_subnet subnet="172.16.0.0" mask="12" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
 ```
 
 ```sh
-st2 run phpipam.add_subnet subnet="172.16.0.0" mask="24" section="IPv4" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/12"
+st2 run phpipam.add_subnet subnet="172.16.0.0" mask="24" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/12"
 ```
 
 ```sh
-st2 run phpipam.add_subnet subnet="172.16.0.0" mask="31" section="IPv4" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/24"
+st2 run phpipam.add_subnet subnet="172.16.0.0" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/24"
 ```
 
 ```sh
-st2 run phpipam.add_subnet subnet="172.16.0.2" mask="31" section="IPv4" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/24"
+st2 run phpipam.add_subnet subnet="172.16.0.2" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw" master_subnet="172.16.0.0/24"
 ```
 
 ```sh
-st2 run phpipam.list_subnets section="IPv4"
+st2 run phpipam.list_subnets section="Customers"
 ```
 
 ```sh
-st2 run phpipam.del_subnet section="IPv4" subnet_cidr="172.16.0.2/31"
+st2 run phpipam.del_subnet section="Customers" subnet_cidr="172.16.0.2/31"
+```
+
+```sh
+st2 run phpipam.del_subnet section="Customers" subnet_cidr="172.16.0.0/31"
+```
+
+```sh
+st2 run phpipam.del_subnet section="Customers" subnet_cidr="172.16.0.0/24"
+```
+
+```sh
+st2 run phpipam.del_subnet section="Customers" subnet_cidr="172.16.0.0/12"
 ```
 
 #### Get First Free IP from Subnet:
 
 ```sh
-st2 run phpipam.get_subnet_first_free_address section="IPv4" subnet_cidr="172.16.0.0/31"
+st2 run phpipam.get_subnet_first_free_address section="Customers" subnet_cidr="10.10.1.0/24"
 ```
 
 #### Add/List/Remove IP address(es):

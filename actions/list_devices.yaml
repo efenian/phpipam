@@ -2,6 +2,6 @@
 ---
 name: list_devices
 runner_type: "python-script"
-description: "List devices in phpipam"
+description: "list devices in phpipam"
 enabled: true
 entry_point: list_devices.py

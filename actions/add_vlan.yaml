@@ -2,23 +2,23 @@
 ---
 name: add_vlan
 runner_type: "python-script"
-description: "Add vlan to phpipam"
+description: "add vlan to phpipam"
 enabled: true
 entry_point: add_vlan.py
 parameters:
     name:
         type: string
-        description: "vlan Name"
+        description: "vlan name"
         required: true
     number:
         type: string
-        description: "vlan Number"
+        description: "vlan number"
         required: true
     description:
         type: string
-        description: "Description for the vlan"
+        description: "description for the vlan"
     l2domain:
         type: string
-        description: "Layer 2 domain name"
+        description: "layer 2 domain name"
 
 

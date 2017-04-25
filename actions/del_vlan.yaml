@@ -2,15 +2,15 @@
 ---
 name: del_vlan
 runner_type: "python-script"
-description: "Delete vlan from phpipam"
+description: "delete vlan from phpipam"
 enabled: true
 entry_point: del_vlan.py
 parameters:
     number:
         type: string
-        description: "vlan Number"
+        description: "vlan number"
         required: true
     l2domain:
         type: string
-        description: "Layer 2 Domain Name"
+        description: "layer 2 domain name"
         required: true

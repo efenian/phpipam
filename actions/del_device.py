@@ -1,7 +1,6 @@
 import warnings
-import phpipam
-import utils
-import json
+import lib.phpipam
+import lib.utils
 
 warnings.filterwarnings('ignore')
 
@@ -17,15 +16,20 @@ class DelDevice(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = phpipam.PhpIpam(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(
+            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        devices = (ipam.list_devices())['data']
-        dev = [x for x in devices if x['hostname'] == hostname]
-        utils.check_list(t_list=dev, t_item=hostname, t_string='device')
+        devices_api = lib.phpipam.controllers.ToolsDevicesApi(phpipam=ipam)
+
+        devicelist = (devices_api.list_tools_devices())['data']
+        dev = [x for x in devicelist if x['hostname'] == hostname]
+        lib.utils.check_list(t_list=dev, t_item=hostname, t_string='device')
         dev_id = dev[0]['id']
 
-        print json.dumps(ipam.del_device(device_id=dev_id),
-                         sort_keys=True, indent=4)
+
+        delete_result = devices_api.del_tools_device(device_id=dev_id)
 
         ipam.logout()
+
+        return delete_result

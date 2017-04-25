@@ -2,20 +2,20 @@
 ---
 name: add_section
 runner_type: "python-script"
-description: "Add section to phpipam"
+description: "add section to phpipam"
 enabled: true
 entry_point: add_section.py
 parameters:
     name:
         type: string
-        description: "section Name"
+        description: "section name"
         required: true
     description:
         type: string
-        description: "Description for the section"
+        description: "description for the section"
     operator_permissions:
         type: string
-        description: "Operator Permissions"
+        description: "operator permissions"
         required: true
         enum:
             - na
@@ -24,7 +24,7 @@ parameters:
             - rwa
     group_permissions:
         type: string
-        description: "Group Permissions"
+        description: "group permissions"
         required: true
         enum:
             - na
@@ -33,20 +33,20 @@ parameters:
             - rwa
     master_section:
         type: string
-        description: "Parent section if nested"
-    vlan:
+        description: "parent section if nested"
+    show_vlan:
         type: string
-        description: "Display VLANs"
-    vrf:
+        description: "display VLANs"
+    show_vrf:
         type: string
-        description: "Display VRFs"
+        description: "display VRFs"
     strict_mode:
         type: string
-        description: "Strict Mode"
+        description: "strict mode"
         default: "1"
-    ordering:
+    subnet_ordering:
         type: string
-        description: "Subnet Ordering"
+        description: "subnet ordering"
         default: "default"
         enum:
             - default

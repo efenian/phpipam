@@ -2,7 +2,7 @@
 ---
 name: add_l2domain
 runner_type: "python-script"
-description: "Add l2domain to phpipam"
+description: "add l2domain to phpipam"
 enabled: true
 entry_point: add_l2domain.py
 parameters:
@@ -12,4 +12,4 @@ parameters:
         required: true
     description:
         type: string
-        description: "Description for the L2domain"
+        description: "description for the l2domain"

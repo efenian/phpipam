@@ -1,6 +1,5 @@
 import warnings
-import phpipam
-import json
+import lib.phpipam
 
 warnings.filterwarnings('ignore')
 
@@ -16,13 +15,14 @@ class AddL2domain(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = phpipam.PhpIpam(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        print json.dumps(ipam.add_l2domain(name=name,
-                                           **kwargs),
-                                           sort_keys=True,
-                                           indent=4)
+        l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)
+
+        new_l2domain = l2domains_api.add_l2domain(name=name, **kwargs)
 
         ipam.logout()
+
+        return new_l2domain
 

@@ -2,11 +2,11 @@
 ---
 name: del_section
 runner_type: "python-script"
-description: "Delete section from phpipam"
+description: "delete section from phpipam"
 enabled: true
 entry_point: del_section.py
 parameters:
     name:
         type: string
-        description: "section Name"
+        description: "section name"
         required: true

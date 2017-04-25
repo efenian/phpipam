@@ -1,6 +1,6 @@
 import warnings
-import phpipam
-import utils
+import lib.phpipam
+import lib.utils
 import json
 
 warnings.filterwarnings('ignore')
@@ -17,16 +17,18 @@ class AddSection(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = phpipam.PhpIpam(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
+
+        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
 
         if kwargs['master_section'] is not None:
             msect = kwargs['master_section']
-            sections = (ipam.list_sections())['data']
-            sect = [x for x in sections if x['name'] == msect]
-            utils.check_list(t_list=sect, t_item=msect,
+            sectionlist = (sections_api.list_sections())['data']
+            sect = [x for x in sectionlist if x['name'] == msect]
+            lib.utils.check_list(t_list=sect, t_item=msect,
                              t_string='master section')
-            kwargs['master_section'] = sect[0]['id']
+            kwargs['master_section_id'] = sect[0]['id']
 
         permissions = {}
 
@@ -44,9 +46,10 @@ class AddSection(Action):
         elif group_permissions == 'rwa':
             permissions['3'] = '3'
 
-        print json.dumps(ipam.add_section(name=name,
-                                          permissions=json.dumps(permissions),
-                                          **kwargs), sort_keys=True, indent=4)
+        new_section = sections_api.add_section(
+            name=name, permissions=json.dumps(permissions), **kwargs)
 
         ipam.logout()
+
+        return new_section
 

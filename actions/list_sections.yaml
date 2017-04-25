@@ -2,6 +2,6 @@
 ---
 name: list_sections
 runner_type: "python-script"
-description: "List sections in phpipam"
+description: "list sections in phpipam"
 enabled: true
 entry_point: list_sections.py

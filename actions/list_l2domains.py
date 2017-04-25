@@ -1,6 +1,5 @@
 import warnings
-import phpipam
-import json
+import lib.phpipam
 
 warnings.filterwarnings('ignore')
 
@@ -16,10 +15,14 @@ class ListL2domains(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = phpipam.PhpIpam(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        print json.dumps(ipam.list_l2domains(), sort_keys=True, indent=4)
+        l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)
+
+        l2domainlist = l2domains_api.list_l2domains()
 
         ipam.logout()
+
+        return l2domains
 
