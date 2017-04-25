@@ -166,3 +166,7 @@ st2 run phpipam.add_vrf name="TENANT1" rd="100:100" description="Core VRF" secti
 st2 run phpipam.list_vrfs
 ```
 
+```sh
+st2 run phpipam.del_vrf name="TENANT1"
+```
+
