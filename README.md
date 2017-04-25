@@ -13,6 +13,9 @@ The phpipam API configuration should be placed in the phpipam.yaml file in the s
 
 ### Sample phpipam.yaml
 
+phpipam API app id is set to app in this case
+
+
 ```yaml
 ---
     api_uri: "https://192.168.16.30/api/app/"
