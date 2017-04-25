@@ -133,18 +133,25 @@ st2 run phpipam.get_subnet_first_free_address section="Customers" subnet_cidr="1
 
 #### Add/List/Remove IP address(es):
 
+This [patch](https://github.com/phpipam/phpipam/commit/c82f1e2f2c7f6f4fe85acbecaabd29d29cbd256b#diff-fc7a4e8b27a5f071cd6e8a7e405bda08) is required for device association to work.
+
+
 ```sh
-st2 run phpipam.add_address section="IPv4" subnet_cidr="172.16.0.0/31" ip_addr="172.16.0.0" hostname="TE-1/0/1.VDX-6740-RB1" description="TE-1/0/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f1" owner="infra" device="VDX-6740-RB1" note="test"
+st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1" hostname="TE-1/0/1.CoreSwitch" description="TE-1/0/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f1" owner="infra" device="CoreSwitch" note="test"
 ```
 
 ```sh
-st2 run phpipam.add_address section="IPv4" subnet_cidr="172.16.0.0/31" ip_addr="172.16.0.1" hostname="TE-1/0/1.VDX-6740-RB2" description="TE-1/0/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="infra" device="VDX-6740-RB2" note="test"
+st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2" hostname="TE-1/0/2.CoreSwitch" description="TE-1/0/2" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="infra" device="CoreSwitch" note="test
 ```
 
 ```sh
-st2 run phpipam.list_subnet_addresses section="IPv4" subnet_cidr="172.16.0.0/31"
+st2 run phpipam.list_subnet_addresses section="IPv4" subnet_cidr="10.10.1.0/24"
 ```
 
 ```sh
-st2 run phpipam.del_address section="IPv4" subnet_cidr="172.16.0.0/31" ip_addr="172.16.0.1"
+st2 run phpipam.del_address section="IPv4" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1"
+```
+
+```sh
+st2 run phpipam.del_address section="IPv4" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2"
 ```

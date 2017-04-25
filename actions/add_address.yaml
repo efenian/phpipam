@@ -2,7 +2,7 @@
 ---
 name: add_address
 runner_type: "python-script"
-description: "Add address to phpipam"
+description: "add address to phpipam"
 enabled: true
 entry_point: add_address.py
 parameters:
@@ -12,17 +12,17 @@ parameters:
         required: true
     description:
         type: string
-        description: "Description for the address"
+        description: "description for the address"
     hostname:
         type: string
         description: "hostname"
     subnet_cidr:
         type: string
-        description: "Subnet CIDR notation"
+        description: "subnet CIDR notation"
         required: true
     section:
         type: string
-        description: "Section Name"
+        description: "section name"
         required: true
     is_gateway:
         type: string
