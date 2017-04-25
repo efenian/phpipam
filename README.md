@@ -145,13 +145,13 @@ st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_ad
 ```
 
 ```sh
-st2 run phpipam.list_subnet_addresses section="IPv4" subnet_cidr="10.10.1.0/24"
+st2 run phpipam.list_subnet_addresses section="Customers" subnet_cidr="10.10.1.0/24"
 ```
 
 ```sh
-st2 run phpipam.del_address section="IPv4" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1"
+st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1"
 ```
 
 ```sh
-st2 run phpipam.del_address section="IPv4" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2"
+st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2"
 ```
