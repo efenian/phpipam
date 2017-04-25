@@ -15,7 +15,8 @@ class ListL2domains(Action):
         api_password = self.config.get('api_password', None)
         api_verify_ssl = self.config.get('api_verify_ssl', True)
 
-        ipam = lib.phpipam.PhpIpamApi(api_uri=api_uri, api_verify_ssl=api_verify_ssl)
+        ipam = lib.phpipam.PhpIpamApi(
+            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
         l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)

@@ -20,11 +20,13 @@ class AddAddress(Action):
             api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        section_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
+        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
 
-        section_data = (section_api.get_section(
-            section=kwargs['section']))['data']
-        sect_id = section_data['id']
+        sectionlist = (sections_api.list_sections())['data']
+        sect = [x for x in sectionlist if x['name'] == kwargs['section']]
+        lib.utils.check_list(
+            t_list=sect, t_item=kwargs['section'], t_string='section name')
+        sect_id = sect[0]['id']
 
         subnets_api = lib.phpipam.controllers.SubnetsApi(phpipam=ipam)
 
@@ -38,7 +40,8 @@ class AddAddress(Action):
 
         taglist = (tags_api.list_tools_tags())['data']
         tag_match = [x for x in taglist if x['type'] == kwargs['tag']]
-        lib.utils.check_list(t_list=tag_match, t_item=kwargs['tag'], t_string='tag')
+        lib.utils.check_list(
+            t_list=tag_match, t_item=kwargs['tag'], t_string='tag')
         kwargs['tag_id'] = tag_match[0]['id']
 
         if kwargs['device'] is not None:

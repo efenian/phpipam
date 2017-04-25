@@ -20,9 +20,6 @@ class AddVrf(Action):
             api_uri=api_uri, api_verify_ssl=api_verify_ssl)
         ipam.login(auth=(api_username, api_password))
 
-        devicetypes_api = lib.phpipam.controllers.ToolsDeviceTypesApi(
-            phpipam=ipam)
-
         if kwargs['sections'] is not None:
             sect_names = kwargs['sections'].split(';')
 

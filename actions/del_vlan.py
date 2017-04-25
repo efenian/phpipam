@@ -24,8 +24,8 @@ class DelVlan(Action):
 
         l2domains = (l2domains_api.list_l2domains())['data']
         l2dom = [x for x in l2domains if x['name'] == l2domain]
-        lib.utils.check_list(t_list=l2dom, t_item=l2domain,
-                         t_string='layer 2 domain')
+        lib.utils.check_list(
+            t_list=l2dom, t_item=l2domain, t_string='layer 2 domain')
         l2dom_id = l2dom[0]['id']
 
         tools_vlans_api = lib.phpipam.controllers.ToolsVlansApi(phpipam=ipam)

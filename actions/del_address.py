@@ -36,7 +36,8 @@ class DelAddress(Action):
         lib.utils.check_list(t_list=sub, t_item=subnet_cidr, t_string='subnet')
         sub_id = sub[0]['id']
 
-        addresslist = (subnets_api.list_subnet_addresses(subnet_id=sub_id))['data']
+        addresslist = (subnets_api.list_subnet_addresses(
+            subnet_id=sub_id))['data']
         addr = [x for x in addresslist if x['ip'] == ip_addr]
         lib.utils.check_list(t_list=addr, t_item=ip_addr, t_string='address')
         addr_id = addr[0]['id']
