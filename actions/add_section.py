@@ -3,14 +3,14 @@ import json
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddSection(Action):
     """ Stackstorm Python Runner """
     def run(self, name, operator_permissions, group_permissions, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -53,4 +53,3 @@ class AddSection(Action):
         ipam.logout()
 
         return new_section
-

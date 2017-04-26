@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddVrf(Action):
     """ Stackstorm Python Runner """
     def run(self, name, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -43,4 +43,3 @@ class AddVrf(Action):
         ipam.logout()
 
         return new_vrf
-

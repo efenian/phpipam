@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddDevice(Action):
     """ Stackstorm Python Runner """
     def run(self, hostname, ip_addr, devicetype, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -56,4 +56,3 @@ class AddDevice(Action):
         ipam.logout()
 
         return new_device
-

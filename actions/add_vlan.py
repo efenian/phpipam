@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddVlan(Action):
     """ Stackstorm Python Runner """
     def run(self, name, number, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -31,7 +31,6 @@ class AddVlan(Action):
             l2dom_id = l2dom[0]['id']
             kwargs['l2domain_id'] = l2dom_id
 
-
         vlans_api = lib.phpipam.controllers.VlansApi(phpipam=ipam)
 
         new_vlan = vlans_api.add_vlan(name=name, number=number, **kwargs)
@@ -39,4 +38,3 @@ class AddVlan(Action):
         ipam.logout()
 
         return new_vlan
-

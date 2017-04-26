@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddAddress(Action):
     """ Stackstorm Python Runner """
     def run(self, ip_addr, subnet_cidr, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -53,8 +53,6 @@ class AddAddress(Action):
                 t_list=dev, t_item=kwargs['device'], t_string='device')
             kwargs['device_id'] = dev[0]['id']
 
-        print kwargs['device_id']
-
         addresses_api = lib.phpipam.controllers.AddressesApi(phpipam=ipam)
 
         new_address = addresses_api.add_address(
@@ -63,4 +61,3 @@ class AddAddress(Action):
         ipam.logout()
 
         return new_address
-

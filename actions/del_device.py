@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class DelDevice(Action):
     """ Stackstorm Python Runner """
     def run(self, hostname):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -26,7 +26,6 @@ class DelDevice(Action):
         dev = [x for x in devicelist if x['hostname'] == hostname]
         lib.utils.check_list(t_list=dev, t_item=hostname, t_string='device')
         dev_id = dev[0]['id']
-
 
         delete_result = devices_api.del_tools_device(device_id=dev_id)
 

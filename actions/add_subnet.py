@@ -3,15 +3,15 @@ import json
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddSubnet(Action):
     """ Stackstorm Python Runner """
     def run(self, subnet, mask,
             operator_permissions, group_permissions, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -77,8 +77,7 @@ class AddSubnet(Action):
 
         if (
                 (kwargs['ping_subnet'] is not None or
-                 kwargs['discover_subnet'] is not None)
-                and
+                 kwargs['discover_subnet'] is not None) and
                 (kwargs['scan_agent'] is None or
                  kwargs['scan_agent'] == '0')):
             kwargs['scan_agent_id'] = '1'
@@ -108,4 +107,3 @@ class AddSubnet(Action):
         ipam.logout()
 
         return new_subnet
-

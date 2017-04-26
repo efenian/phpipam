@@ -2,14 +2,14 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class DelAddress(Action):
     """ Stackstorm Python Runner """
     def run(self, section, subnet_cidr, ip_addr):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -47,4 +47,3 @@ class DelAddress(Action):
         ipam.logout()
 
         return delete_result
-

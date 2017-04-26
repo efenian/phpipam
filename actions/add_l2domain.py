@@ -1,14 +1,14 @@
 import warnings
 import lib.phpipam
 
-warnings.filterwarnings('ignore')
-
 from st2actions.runners.pythonrunner import Action
+
 
 class AddL2domain(Action):
     """ Stackstorm Python Runner """
     def run(self, name, **kwargs):
         """ Stackstorm Run Method  """
+        warnings.filterwarnings('ignore')
 
         api_uri = self.config.get('api_uri', None)
         api_username = self.config.get('api_username', None)
@@ -26,4 +26,3 @@ class AddL2domain(Action):
         ipam.logout()
 
         return new_l2domain
-
