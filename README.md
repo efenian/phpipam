@@ -144,7 +144,7 @@ st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_ad
 ```
 
 ```sh
-st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2" hostname="TE-1/0/2.CoreSwitch" description="TE-1/0/2" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="infra" device="CoreSwitch" note="test
+st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2" hostname="TE-1/0/2.CoreSwitch" description="TE-1/0/2" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="infra" device="CoreSwitch" note="test"
 ```
 
 ```sh
