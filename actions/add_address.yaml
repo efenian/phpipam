@@ -35,10 +35,10 @@ parameters:
         required: true
         default: "Used"
         enum:
-            - Offline
-            - Used
-            - Reserved
-            - DHCP
+            - "Offline
+            - "Used"
+            - "Reserved"
+            - "DHCP"
     mac:
         type: string
         description: "address MAC"

@@ -19,15 +19,15 @@ parameters:
         description: "device type"
         required: true
         enum:
-            - Switch
-            - Router
-            - Firewall
-            - Hub
-            - Wireless
-            - Database
-            - Workstation
-            - Laptop
-            - Other
+            - "Switch"
+            - "Router"
+            - "Firewall"
+            - "Hub"
+            - "Wireless"
+            - "Database"
+            - "Workstation"
+            - "Laptop"
+            - "Other"
     vendor:
         type: string
         description: "device vendor"
