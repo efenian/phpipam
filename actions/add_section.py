@@ -23,8 +23,8 @@ class AddSection(BaseAction):
         sections_api = SectionsApi(phpipam=self.ipam)
 
         if kwargs['master_section']:
-            kwargs['master_section_id' = get_section_id(
-                    ipam=self.ipam, name=kwargs['master_section'])
+            kwargs['master_section_id'] = get_section_id(
+                ipam=self.ipam, name=kwargs['master_section'])
 
         permissions = {}
         permissions['2'] = permission_map[operator_permissions]

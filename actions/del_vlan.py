@@ -5,6 +5,7 @@ from lib.phpipam.controllers import VlansApi
 from lib.utils import get_l2domain_id
 from lib.utils import get_vlan_id
 
+
 class DelVlan(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, number, l2domain):
@@ -15,7 +16,7 @@ class DelVlan(BaseAction):
 
         l2domain_id = get_l2domain_id(ipam=self.ipam, name=l2domain)
         vlan_id = get_vlan_id(
-                ipam=self.ipam, number=number, l2domain_id=l2domain_id)
+            ipam=self.ipam, number=number, l2domain_id=l2domain_id)
 
         vlans_api = VlansApi(phpipam=self.ipam)
 

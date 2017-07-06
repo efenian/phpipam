@@ -3,6 +3,7 @@ import warnings
 from lib.baseaction import BaseAction
 from lib.phpipam.controllers import L2DomainsApi
 
+
 class ListL2domains(BaseAction):
     """ Stackstorm Python Runner """
     def run(self):

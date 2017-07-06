@@ -1,6 +1,4 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
 from lib.baseaction import BaseAction
 from lib.phpipam.controllers import ToolsDevicesApi

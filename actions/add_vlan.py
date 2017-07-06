@@ -15,7 +15,7 @@ class AddVlan(BaseAction):
 
         if kwargs['l2domain']:
             kwargs['l2domain_id'] = get_l2domain_id(
-                    ipam=self.ipam, name=kwargs['l2domain'])
+                ipam=self.ipam, name=kwargs['l2domain'])
 
         vlans_api = VlansApi(phpipam=self.ipam)
 

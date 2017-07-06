@@ -20,11 +20,11 @@ class AddDevice(BaseAction):
 
         if kwargs['location']:
             kwargs['location_id'] = get_tools_location_id(
-                    ipam=self.ipam, name=kwargs['location'])
+                ipam=self.ipam, name=kwargs['location'])
 
         if kwargs['rack']:
-            kwargs['rack_id'] =  get_tools_rack_id(
-                    ipam=self.ipam, name=kwargs['rack'])
+            kwargs['rack_id'] = get_tools_rack_id(
+                ipam=self.ipam, name=kwargs['rack'])
 
         if kwargs['sections']:
             sect_names = kwargs['sections'].split(';')
@@ -32,10 +32,9 @@ class AddDevice(BaseAction):
 
             for sect_name in sect_names:
                 section_ids.append(
-                        get_section_id(ipam=self.ipam, name=sect_name))
+                    get_section_id(ipam=self.ipam, name=sect_name))
 
             kwargs['sections'] = ';'.join(section_ids)
-
 
         devices_api = ToolsDevicesApi(phpipam=self.ipam)
 

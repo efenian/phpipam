@@ -8,6 +8,8 @@ from lib.utils import get_section_id
 from lib.utils import get_l2domain_id
 from lib.utils import get_vlan_id
 from lib.utils import get_tools_device_id
+from lib.utils import get_vrf_id
+from lib.utils import get_tools_location_id
 
 
 class AddSubnet(BaseAction):
@@ -27,12 +29,12 @@ class AddSubnet(BaseAction):
         subnets_api = SubnetsApi(phpipam=self.ipam)
 
         kwargs['section_id'] = get_section_id(
-                ipam=self.ipam, name=kwargs['section'])
+            ipam=self.ipam, name=kwargs['section'])
 
         if kwargs['master_subnet']:
             kwargs['master_subnet_id'] = get_subnet_id(
-                    ipam=self.ipam, cidr=kwargs['master_subnet'],
-                    section_id=kwargs['section_id'])
+                ipam=self.ipam, cidr=kwargs['master_subnet'],
+                section_id=kwargs['section_id'])
 
         if kwargs['vlan']:
             if kwargs['l2domain']:
@@ -47,7 +49,7 @@ class AddSubnet(BaseAction):
 
         if kwargs['device']:
             kwargs['device_id'] = get_tools_device_id(
-                    ipam=self.ipam, name=kwargs['device'])
+                ipam=self.ipam, name=kwargs['device'])
 
         if kwargs['threshold']:
             if kwargs['threshold'] < 1 or kwargs['threshold'] > 100:
@@ -55,12 +57,11 @@ class AddSubnet(BaseAction):
 
         if kwargs['vrf']:
             kwargs['vrf_id'] = get_vrf_id(
-                    ipam=self.ipam, name=kwargs['vrf'])
+                ipam=self.ipam, name=kwargs['vrf'])
 
         if kwargs['location']:
-            kwargs['location_id'] = get_location_id(
-                    ipam=self.ipam, name=kwargs['location'])
-
+            kwargs['location_id'] = get_tools_location_id(
+                ipam=self.ipam, name=kwargs['location'])
 
         if (
                 (kwargs['ping_subnet'] or
@@ -78,7 +79,6 @@ class AddSubnet(BaseAction):
         kwargs['ping_subnet'] = int(kwargs['ping_subnet'])
         kwargs['discover_subnet'] = int(kwargs['discover_subnet'])
         kwargs['full'] = int(kwargs['full'])
-
 
         new_subnet = subnets_api.add_subnet(
             subnet=subnet,

@@ -1,43 +1,28 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import SubnetsApi
+from lib.utils import get_section_id
+from lib.utils import get_subnet_id
 
 
-class GetSubnetFirstFreeAddress(Action):
+class GetSubnetFirstFreeAddress(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, section, subnet_cidr):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        subnets_api = SubnetsApi(phpipam=self.ipam)
 
-        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
-        subnets_api = lib.phpipam.controllers.SubnetsApi(phpipam=ipam)
+        sect_id = get_section_id(ipam=self.ipam, name=section)
 
-        sectionlist = (sections_api.list_sections())['data']
-        sect = [x for x in sectionlist if x['name'] == section]
-        lib.utils.check_list(
-            t_list=sect, t_item=section, t_string='section name')
-        sect_id = sect[0]['id']
-
-        subnetlist = (subnets_api.list_subnets_cidr(
-            subnet_cidr=subnet_cidr))['data']
-        sub = [x for x in subnetlist if x['sectionId'] == sect_id]
-        lib.utils.check_list(
-            t_list=sub, t_item=subnet_cidr, t_string='subnet')
-        sub_id = sub[0]['id']
+        sub_id = get_subnet_id(
+            ipam=self.ipam, cidr=subnet_cidr, section_id=sect_id)
 
         address = subnets_api.get_subnet_first_free_address(subnet_id=sub_id)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return address

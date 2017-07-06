@@ -5,7 +5,7 @@ Stackstorm pack for {php}IPAM
 Here is what you need:
 
   - [Stackstorm](https://docs.stackstorm.com/install/index.html#installation)
-  - [{php}IPAM 1.2](http://phpipam.net/documents/download-phpipam/) (you can try my [vagrant](https://github.com/efenian/phpipamvagrant) as well)
+  - [{php}IPAM 1.3](http://phpipam.net/documents/download-phpipam/) (you can try my [vagrant](https://github.com/efenian/phpipamvagrant) as well)
 
 You will have to enable the phpipam API and have mod_rewrite working.
 
@@ -25,6 +25,34 @@ phpipam API app id is set to app in this case
 ```
 
 ### Examples
+
+#### Add/List/Remove location(s):
+
+```sh
+st2 run phpipam.add_location name="DC2" address="21715 Filigree Court, Ashburn, VA 20147"
+```
+
+```sh
+st2 run phpipam.list_locations
+```
+
+```sh
+st2 run phpipam.del_location name="DC2"
+```
+
+#### Add/List/Remove rack(s):
+
+```sh
+st2 run phpipam.add_rack name="R1" size=42 location="DC2"
+```
+
+```sh
+st2 run phpipam.list_racks
+```
+
+```sh
+st2 run phpipam.del_rack name="R1"
+```
 
 #### Add/List/Remove device(s):
 

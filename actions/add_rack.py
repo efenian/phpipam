@@ -15,7 +15,7 @@ class AddRack(BaseAction):
 
         if kwargs['location']:
             kwargs['location_id'] = get_tools_location_id(
-                    ipam=self.ipam, name=kwargs['location'])
+                ipam=self.ipam, name=kwargs['location'])
 
         racks_api = ToolsRacksApi(phpipam=self.ipam)
 

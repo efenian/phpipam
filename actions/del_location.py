@@ -18,7 +18,7 @@ class DelLocation(BaseAction):
         location_id = get_tools_location_id(ipam=self.ipam, name=name)
 
         delete_result = locations_api.del_tools_location(
-                location_id=location_id)
+            location_id=location_id)
 
         self.ipam.logout()
 

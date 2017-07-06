@@ -2,7 +2,6 @@ import warnings
 
 from lib.baseaction import BaseAction
 from lib.phpipam.controllers import L2DomainsApi
-from lib.utils import get_section_id
 
 
 class AddL2domain(BaseAction):
