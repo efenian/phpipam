@@ -20,5 +20,4 @@ parameters:
     l2domain:
         type: string
         description: "layer 2 domain name"
-
-
+        required: true

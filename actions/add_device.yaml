@@ -28,15 +28,21 @@ parameters:
             - "Workstation"
             - "Laptop"
             - "Other"
-    vendor:
+    location:
         type: string
-        description: "device vendor"
-    model:
+        description: "location"
+    rack:
         type: string
-        description: "device model"
-    sections:
-        type: string
-        description: "sections to display device (Section1;Section2;Etc...)"
+        description: "rack"
+    rack_size:
+        type: integer
+        description: "rack unit size"
+    rack_start:
+        type: integer
+        description: "rack unit start"
     description:
         type: string
         description: "description for the device"
+    sections:
+        type: string
+        description: "sections to display device (Section1;Section2;Etc...)"

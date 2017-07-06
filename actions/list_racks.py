@@ -1,10 +1,10 @@
 import warnings
 
 from lib.baseaction import BaseAction
-from lib.phpipam.controllers import VlansApi
+from lib.phpipam.controllers import ToolsRacksApi
 
 
-class ListVlans(BaseAction):
+class ListRacks(BaseAction):
     """ Stackstorm Python Runner """
     def run(self):
         """ Stackstorm Run Method  """
@@ -12,10 +12,10 @@ class ListVlans(BaseAction):
 
         self.ipam.login(auth=(self.api_username, self.api_password))
 
-        vlans_api = VlansApi(phpipam=self.ipam)
+        racks_api = ToolsRacksApi(phpipam=self.ipam)
 
-        vlanlist = vlans_api.list_vlans()
+        racklist = racks_api.list_tools_racks()
 
         self.ipam.logout()
 
-        return vlanlist
+        return racklist

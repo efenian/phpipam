@@ -1,34 +1,24 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import SectionsApi
+from lib.utils import get_section_id
 
 
-class DelSection(Action):
+class DelSection(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, name):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        sections_api = SectionsApi(phpipam=self.ipam)
 
-        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
-
-        sectionlist = (sections_api.list_sections())['data']
-        sect = [x for x in sectionlist if x['name'] == name]
-        lib.utils.check_list(t_list=sect, t_item=name, t_string='section name')
-        sect_id = sect[0]['id']
+        sect_id = get_section_id(ipam=self.ipam, name=name)
 
         delete_result = sections_api.del_section(section_id=sect_id)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return delete_result

@@ -1,51 +1,43 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import ToolsDevicesApi
+from lib.utils import get_tools_devicetype_id
+from lib.utils import get_tools_location_id
+from lib.utils import get_tools_rack_id
+from lib.utils import get_section_id
 
 
-class AddDevice(Action):
+class AddDevice(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, hostname, ip_addr, devicetype, **kwargs):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        type_id = get_tools_devicetype_id(ipam=self.ipam, name=devicetype)
 
-        devicetypes_api = lib.phpipam.controllers.ToolsDeviceTypesApi(
-            phpipam=ipam)
+        if kwargs['location']:
+            kwargs['location_id'] = get_tools_location_id(
+                    ipam=self.ipam, name=kwargs['location'])
 
-        devicetypes = (devicetypes_api.list_tools_devicetypes())['data']
-        dtype = [x for x in devicetypes if x['tname'] == devicetype]
-        lib.utils.check_list(
-            t_list=dtype, t_item=devicetype, t_string='device type')
-        type_id = dtype[0]['id']
+        if kwargs['rack']:
+            kwargs['rack_id'] =  get_tools_rack_id(
+                    ipam=self.ipam, name=kwargs['rack'])
 
-        if kwargs['sections'] is not None:
+        if kwargs['sections']:
             sect_names = kwargs['sections'].split(';')
-
-            sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
-
-            sections = (sections_api.list_sections())['data']
             section_ids = []
 
             for sect_name in sect_names:
-                sect = [x for x in sections if x['name'] == sect_name]
-                lib.utils.check_list(
-                    t_list=sect, t_item=sect_name, t_string='section_name')
-                section_ids.append(sect[0]['id'])
+                section_ids.append(
+                        get_section_id(ipam=self.ipam, name=sect_name))
 
             kwargs['sections'] = ';'.join(section_ids)
 
-        devices_api = lib.phpipam.controllers.ToolsDevicesApi(phpipam=ipam)
+
+        devices_api = ToolsDevicesApi(phpipam=self.ipam)
 
         new_device = devices_api.add_tools_device(
             hostname=hostname,
@@ -53,6 +45,6 @@ class AddDevice(Action):
             type_id=type_id,
             **kwargs)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return new_device

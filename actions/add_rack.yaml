@@ -1,0 +1,48 @@
+# phpipam/actions/add_rack.yaml
+---
+name: add_rack
+runner_type: "python-script"
+description: "add rack to phpipam"
+enabled: true
+entry_point: add_rack.py
+parameters:
+    name:
+        type: string
+        description: "rack name"
+        required: true
+    description:
+        type: string
+        description: "description for the rack"
+    location:
+        type: string
+        description: "rack location"
+    size:
+        type: integer
+        description: "rack units"
+        default: 42
+        enum:
+            - 14
+            - 20
+            - 24
+            - 30
+            - 32
+            - 33
+            - 34
+            - 35
+            - 36
+            - 37
+            - 38
+            - 39
+            - 40
+            - 41
+            - 42
+            - 43
+            - 44
+            - 45
+            - 46
+            - 47
+            - 48
+            - 49
+            - 50
+            - 51
+            - 52

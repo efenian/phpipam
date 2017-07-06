@@ -2,33 +2,25 @@ import warnings
 import lib.phpipam
 import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import ToolsDevicesApi
+from lib.utils import get_tools_device_id
 
 
-class DelDevice(Action):
+class DelDevice(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, hostname):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        devices_api = ToolsDevicesApi(phpipam=self.ipam)
 
-        devices_api = lib.phpipam.controllers.ToolsDevicesApi(phpipam=ipam)
-
-        devicelist = (devices_api.list_tools_devices())['data']
-        dev = [x for x in devicelist if x['hostname'] == hostname]
-        lib.utils.check_list(t_list=dev, t_item=hostname, t_string='device')
-        dev_id = dev[0]['id']
+        dev_id = get_tools_device_id(ipam=self.ipam, name=hostname)
 
         delete_result = devices_api.del_tools_device(device_id=dev_id)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return delete_result

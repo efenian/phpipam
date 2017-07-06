@@ -1,0 +1,7 @@
+# phpipam/actions/list_racks.yaml
+---
+name: list_racks
+runner_type: "python-script"
+description: "list racks in phpipam"
+enabled: true
+entry_point: list_racks.py

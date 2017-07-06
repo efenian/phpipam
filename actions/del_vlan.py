@@ -1,45 +1,26 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import VlansApi
+from lib.utils import get_l2domain_id
+from lib.utils import get_vlan_id
 
-
-class DelVlan(Action):
+class DelVlan(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, number, l2domain):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        l2domain_id = get_l2domain_id(ipam=self.ipam, name=l2domain)
+        vlan_id = get_vlan_id(
+                ipam=self.ipam, number=number, l2domain_id=l2domain_id)
 
-        l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)
-
-        l2domains = (l2domains_api.list_l2domains())['data']
-        l2dom = [x for x in l2domains if x['name'] == l2domain]
-        lib.utils.check_list(
-            t_list=l2dom, t_item=l2domain, t_string='layer 2 domain')
-        l2dom_id = l2dom[0]['id']
-
-        tools_vlans_api = lib.phpipam.controllers.ToolsVlansApi(phpipam=ipam)
-
-        vlans = (tools_vlans_api.list_tools_vlans())['data']
-        vlan = [x for x in vlans
-                if x['number'] == number and x['domainId'] == l2dom_id]
-        lib.utils.check_list(t_list=vlan, t_item=number, t_string='vlan')
-        vlan_id = vlan[0]['id']
-
-        vlans_api = lib.phpipam.controllers.VlansApi(phpipam=ipam)
+        vlans_api = VlansApi(phpipam=self.ipam)
 
         delete_result = vlans_api.del_vlan(vlan_id=vlan_id)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return delete_result

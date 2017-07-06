@@ -35,26 +35,17 @@ parameters:
         type: string
         description: "parent section if nested"
     show_vlan:
-        type: string
+        type: boolean
         description: "display VLANs"
-        default: "1"
-        enum:
-            - "0"
-            - "1"
+        default: true
     show_vrf:
-        type: string
+        type: boolean
         description: "display VRFs"
-        default: "1"
-        enum:
-            - "0"
-            - "1"
+        default: true
     strict_mode:
-        type: string
+        type: boolean
         description: "strict mode"
-        default: "1"
-        enum:
-            - "0"
-            - "1"
+        default: true
     subnet_ordering:
         type: string
         description: "subnet ordering"

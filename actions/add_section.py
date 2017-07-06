@@ -1,55 +1,42 @@
 import warnings
 import json
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import SectionsApi
+from lib.utils import get_section_id
 
 
-class AddSection(Action):
+class AddSection(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, name, operator_permissions, group_permissions, **kwargs):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        permission_map = {
+            'ro': '1',
+            'rw': '2',
+            'rwa': '3'
+        }
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
+        sections_api = SectionsApi(phpipam=self.ipam)
 
-        if kwargs['master_section'] is not None:
-            msect = kwargs['master_section']
-            sectionlist = (sections_api.list_sections())['data']
-            sect = [x for x in sectionlist if x['name'] == msect]
-            lib.utils.check_list(
-                t_list=sect, t_item=msect, t_string='master section')
-            kwargs['master_section_id'] = sect[0]['id']
+        if kwargs['master_section']:
+            kwargs['master_section_id' = get_section_id(
+                    ipam=self.ipam, name=kwargs['master_section'])
 
         permissions = {}
+        permissions['2'] = permission_map[operator_permissions]
+        permissions['3'] = permission_map[group_permissions]
 
-        if operator_permissions == 'ro':
-            permissions['2'] = '1'
-        elif operator_permissions == 'rw':
-            permissions['2'] = '2'
-        elif operator_permissions == 'rwa':
-            permissions['2'] = '3'
-
-        if group_permissions == 'ro':
-            permissions['3'] = '1'
-        elif group_permissions == 'rw':
-            permissions['3'] = '2'
-        elif group_permissions == 'rwa':
-            permissions['3'] = '3'
+        kwargs['show_vlan'] = int(kwargs['show_vlan'])
+        kwargs['show_vrf'] = int(kwargs['show_vrf'])
+        kwargs['strict_mode'] = int(kwargs['strict_mode'])
 
         new_section = sections_api.add_section(
             name=name, permissions=json.dumps(permissions), **kwargs)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return new_section

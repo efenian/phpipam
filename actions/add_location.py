@@ -1,11 +1,10 @@
 import warnings
 
 from lib.baseaction import BaseAction
-from lib.phpipam.controllers import L2DomainsApi
-from lib.utils import get_section_id
+from lib.phpipam.controllers import ToolsLocationsApi
 
 
-class AddL2domain(BaseAction):
+class AddLocation(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, name, **kwargs):
         """ Stackstorm Run Method  """
@@ -13,10 +12,10 @@ class AddL2domain(BaseAction):
 
         self.ipam.login(auth=(self.api_username, self.api_password))
 
-        l2domains_api = L2DomainsApi(phpipam=self.ipam)
+        locations_api = ToolsLocationsApi(phpipam=self.ipam)
 
-        new_l2domain = l2domains_api.add_l2domain(name=name, **kwargs)
+        new_location = locations_api.add_tools_location(name=name, **kwargs)
 
         self.ipam.logout()
 
-        return new_l2domain
+        return new_location

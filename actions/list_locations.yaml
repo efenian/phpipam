@@ -1,0 +1,7 @@
+# phpipam/actions/list_locations.yaml
+---
+name: list_locations
+runner_type: "python-script"
+description: "list locations in phpipam"
+enabled: true
+entry_point: list_locations.py

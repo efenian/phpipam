@@ -31,12 +31,9 @@ parameters:
         type: string
         description: "layer 2 domain"
     show_name:
-        type: string
+        type: boolean
         description: "show by name instead of subnet"
-        default: "0"
-        enum:
-            - "0"
-            - "1"
+        default: false
     device:
         type: string
         description: "device name"
@@ -59,27 +56,26 @@ parameters:
             - "rw"
             - "rwa"
     ping_subnet:
-        type: string
+        type: boolean
         description: "ping sweep subnet or not"
-        default: "0"
-        enum:
-            - "0"
-            - "1"
+        default: false
     discover_subnet:
-        type: string
+        type: boolean
         description: "discover new hosts in subnet or not"
-        default: "0"
-        enum:
-            - "0"
-            - "1"
+        default: false
     scan_agent:
         type: string
         description: "scan agent id"
     full:
-        type: string
+        type: boolean
         description: "mark subnet as full"
-        default: "0"
-        enum:
-            - "0"
-            - "1"
-
+        default: false
+    vrf:
+        type: string
+        description: "the vrf for this subnet"
+    location:
+        type: string
+        description: "the location for this subnet"
+    threshold:
+        type: integer
+        description: "alterting threshold"

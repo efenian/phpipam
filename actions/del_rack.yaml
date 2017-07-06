@@ -1,0 +1,12 @@
+# phpipam/actions/del_rack.yaml
+---
+name: del_rack
+runner_type: "python-script"
+description: "delete rack from phpipam"
+enabled: true
+entry_point: del_rack.py
+parameters:
+    name:
+        type: string
+        description: "rack name"
+        required: true

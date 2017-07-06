@@ -1,28 +1,20 @@
 import warnings
-import lib.phpipam
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import L2DomainsApi
 
-
-class ListL2domains(Action):
+class ListL2domains(BaseAction):
     """ Stackstorm Python Runner """
     def run(self):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
-
-        l2domains_api = lib.phpipam.controllers.L2DomainsApi(phpipam=ipam)
+        l2domains_api = L2DomainsApi(phpipam=self.ipam)
 
         l2domainlist = l2domains_api.list_l2domains()
 
-        ipam.logout()
+        self.ipam.logout()
 
         return l2domainlist

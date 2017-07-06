@@ -1,28 +1,21 @@
 import warnings
-import lib.phpipam
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import ToolsDevicesApi
 
 
-class ListDevices(Action):
+class ListDevices(BaseAction):
     """ Stackstorm Python Runner """
     def run(self):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
-
-        devices_api = lib.phpipam.controllers.ToolsDevicesApi(phpipam=ipam)
+        devices_api = ToolsDevicesApi(phpipam=self.ipam)
 
         devicelist = devices_api.list_tools_devices()
 
-        ipam.logout()
+        self.ipam.logout()
 
         return devicelist

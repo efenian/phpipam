@@ -8,7 +8,7 @@ entry_point: add_l2domain.py
 parameters:
     name:
         type: string
-        description: "l2domain Name"
+        description: "l2domain name"
         required: true
     description:
         type: string
