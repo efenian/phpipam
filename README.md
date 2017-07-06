@@ -164,9 +164,6 @@ st2 run phpipam.get_subnet_first_free_address section="Customers" subnet_cidr="1
 
 #### Add/List/Remove IP address(es):
 
-This [patch](https://github.com/phpipam/phpipam/commit/c82f1e2f2c7f6f4fe85acbecaabd29d29cbd256b#diff-fc7a4e8b27a5f071cd6e8a7e405bda08) is required for device association to work.
-
-
 ```sh
 st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1" hostname="TE-1/0/1.CoreSwitch" description="TE-1/0/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f1" owner="infra" device="CoreSwitch" note="test"
 ```
