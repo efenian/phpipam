@@ -5,6 +5,7 @@ import requests
 
 from .configuration import Configuration
 
+
 def build_payload(objmap=None, **kwargs):
     """ build the REST payload """
     payload = {}
