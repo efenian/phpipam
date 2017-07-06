@@ -1,49 +1,32 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import AddressesApi
+from lib.utils import get_section_id
+from lib.utils import get_subnet_id
+from lib.utils import get_address_id
 
 
-class DelAddress(Action):
+class DelAddress(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, section, subnet_cidr, ip_addr):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        addresses_api = AddressesApi(phpipam=self.ipam)
 
-        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
-        subnets_api = lib.phpipam.controllers.SubnetsApi(phpipam=ipam)
-        addresses_api = lib.phpipam.controllers.AddressesApi(phpipam=ipam)
+        sect_id = get_section_id(ipam=self.ipam, name=section)
 
-        sectionlist = (sections_api.list_sections())['data']
-        sect = [x for x in sectionlist if x['name'] == section]
-        lib.utils.check_list(
-            t_list=sect, t_item=section, t_string='section name')
-        sect_id = sect[0]['id']
+        subnet_id = get_subnet_id(
+            ipam=self.ipam, cidr=subnet_cidr, section_id=sect_id)
 
-        subnetlist = (subnets_api.list_subnets_cidr(
-            subnet_cidr=subnet_cidr))['data']
-        sub = [x for x in subnetlist if x['sectionId'] == sect_id]
-        lib.utils.check_list(t_list=sub, t_item=subnet_cidr, t_string='subnet')
-        sub_id = sub[0]['id']
-
-        addresslist = (subnets_api.list_subnet_addresses(
-            subnet_id=sub_id))['data']
-        addr = [x for x in addresslist if x['ip'] == ip_addr]
-        lib.utils.check_list(t_list=addr, t_item=ip_addr, t_string='address')
-        addr_id = addr[0]['id']
+        addr_id = get_address_id(
+            ipam=self.ipam, ip_addr=ip_addr, subnet_id=subnet_id)
 
         delete_result = addresses_api.del_address(address_id=addr_id)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return delete_result

@@ -1,5 +1,6 @@
 from st2actions.runners.pythonrunner import Action
-from phpipam import PhpIpamApi
+from lib.phpipam import PhpIpamApi
+
 
 class BaseAction(Action):
     def __init__(self, config):
@@ -11,4 +12,4 @@ class BaseAction(Action):
         self.api_verify_ssl = config.get('api_verify_ssl', False)
 
         self.ipam = PhpIpamApi(
-                api_uri=self.api_uri, api_verify_ssl=self.api_verify_ssl)
+            api_uri=self.api_uri, api_verify_ssl=self.api_verify_ssl)

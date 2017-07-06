@@ -6,14 +6,15 @@ from lib.phpipam.controllers import ToolsDevicesApi
 from lib.phpipam.controllers import ToolsDeviceTypesApi
 from lib.phpipam.controllers import ToolsLocationsApi
 from lib.phpipam.controllers import ToolsRacksApi
+from lib.phpipam.controllers import ToolsTagsApi
 from lib.phpipam.controllers import VlansApi
 from lib.phpipam.controllers import VRFsApi
 
 
 def check_list(t_list='', t_item='', t_string=''):
     """ function to check list length and raise appropriate exception """
-    not_found = t_string.capitalize()  + ' not found: ' + t_item
-    ambiguous = 'Abiguous ' + t_string +  ' match: ' + t_item
+    not_found = t_string.capitalize() + ' not found: ' + t_item
+    ambiguous = 'Abiguous ' + t_string + ' match: ' + t_item
     if len(t_list) == 0:
         raise ValueError(not_found)
     if len(t_list) > 1:
@@ -93,8 +94,8 @@ def get_vlan_id(ipam=None, name=None, number=None, l2domain_id=None):
 
     if number and l2domain_id:
         vlan = [x for x in vlanlist
-                if x['number'] == number
-                and x['domainId'] == l2domain_id]
+                if x['number'] == number and
+                x['domainId'] == l2domain_id]
 
         check_list(t_list=vlan, t_item=number, t_string='vlan')
 
@@ -122,11 +123,35 @@ def get_subnet_id(ipam=None, name=None, cidr=None, section_id=None):
 
 
 def get_vrf_id(ipam=None, name=None):
-	vrfs_api = VRFsApi(phpipam=ipam)
+    vrfs_api = VRFsApi(phpipam=ipam)
 
-	vrflist = (vrfs_api.list_vrfs())['data']
-	vrf = [x for x in vrflist if x['name'] == name]
+    vrflist = (vrfs_api.list_vrfs())['data']
+    vrf = [x for x in vrflist if x['name'] == name]
 
-	check_list(t_list=vrf, t_item=name, t_string='VRF')
+    check_list(t_list=vrf, t_item=name, t_string='VRF')
 
-	return vrf[0]['id']
+    return vrf[0]['id']
+
+
+def get_tag_id(ipam=None, name=None):
+    tags_api = ToolsTagsApi(phpipam=ipam)
+
+    taglist = (tags_api.list_tools_tags())['data']
+    tag = [x for x in taglist if x['type'] == name]
+
+    check_list(t_list=tag, t_item=name, t_string='tag')
+
+    return tag[0]['id']
+
+
+def get_address_id(ipam=None, ip_addr=None, subnet_id=None):
+    subnets_api = SubnetsApi(phpipam=ipam)
+
+    addresslist = (subnets_api.list_subnet_addresses(
+        subnet_id=subnet_id))['data']
+
+    addr = [x for x in addresslist if x['ip'] == ip_addr]
+
+    check_list(t_list=addr, t_item=ip_addr, t_string='address')
+
+    return addr[0]['id']

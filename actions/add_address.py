@@ -1,63 +1,37 @@
 import warnings
-import lib.phpipam
-import lib.utils
 
-from st2actions.runners.pythonrunner import Action
+from lib.baseaction import BaseAction
+from lib.phpipam.controllers import AddressesApi
+from lib.utils import get_section_id
+from lib.utils import get_subnet_id
+from lib.utils import get_tag_id
+from lib.utils import get_tools_device_id
 
 
-class AddAddress(Action):
+class AddAddress(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, ip_addr, subnet_cidr, **kwargs):
         """ Stackstorm Run Method  """
         warnings.filterwarnings('ignore')
 
-        api_uri = self.config.get('api_uri', None)
-        api_username = self.config.get('api_username', None)
-        api_password = self.config.get('api_password', None)
-        api_verify_ssl = self.config.get('api_verify_ssl', True)
+        self.ipam.login(auth=(self.api_username, self.api_password))
 
-        ipam = lib.phpipam.PhpIpamApi(
-            api_uri=api_uri, api_verify_ssl=api_verify_ssl)
-        ipam.login(auth=(api_username, api_password))
+        sect_id = get_section_id(ipam=self.ipam, name=kwargs['section'])
 
-        sections_api = lib.phpipam.controllers.SectionsApi(phpipam=ipam)
+        subnet_id = get_subnet_id(
+            ipam=self.ipam, cidr=subnet_cidr, section_id=sect_id)
 
-        sectionlist = (sections_api.list_sections())['data']
-        sect = [x for x in sectionlist if x['name'] == kwargs['section']]
-        lib.utils.check_list(
-            t_list=sect, t_item=kwargs['section'], t_string='section name')
-        sect_id = sect[0]['id']
+        kwargs['tag_id'] = get_tag_id(ipam=self.ipam, name=kwargs['tag'])
 
-        subnets_api = lib.phpipam.controllers.SubnetsApi(phpipam=ipam)
+        if kwargs['device']:
+            kwargs['device_id'] = get_tools_device_id(
+                ipam=self.ipam, name=kwargs['device'])
 
-        subnetlist = (subnets_api.list_subnets_cidr(
-            subnet_cidr=subnet_cidr))['data']
-        sub = [x for x in subnetlist if x['sectionId'] == sect_id]
-        lib.utils.check_list(t_list=sub, t_item=subnet_cidr, t_string='subnet')
-        sub_id = sub[0]['id']
-
-        tags_api = lib.phpipam.controllers.ToolsTagsApi(phpipam=ipam)
-
-        taglist = (tags_api.list_tools_tags())['data']
-        tag_match = [x for x in taglist if x['type'] == kwargs['tag']]
-        lib.utils.check_list(
-            t_list=tag_match, t_item=kwargs['tag'], t_string='tag')
-        kwargs['tag_id'] = tag_match[0]['id']
-
-        if kwargs['device'] is not None:
-            devices_api = lib.phpipam.controllers.ToolsDevicesApi(phpipam=ipam)
-
-            devicelist = (devices_api.list_tools_devices())['data']
-            dev = [x for x in devicelist if x['hostname'] == kwargs['device']]
-            lib.utils.check_list(
-                t_list=dev, t_item=kwargs['device'], t_string='device')
-            kwargs['device_id'] = dev[0]['id']
-
-        addresses_api = lib.phpipam.controllers.AddressesApi(phpipam=ipam)
+        addresses_api = AddressesApi(phpipam=self.ipam)
 
         new_address = addresses_api.add_address(
-            ip_addr=ip_addr, subnet_id=sub_id, **kwargs)
+            ip_addr=ip_addr, subnet_id=subnet_id, **kwargs)
 
-        ipam.logout()
+        self.ipam.logout()
 
         return new_address
