@@ -141,7 +141,7 @@ st2 run phpipam.add_subnet subnet="172.16.0.2" mask="31" section="Customers" des
 ```
 
 ```sh
-st2 run phpipam.add_subnet master_subnet="172.16.0.0/24" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
+st2 run phpipam.add_subnet_first_free_subnet master_subnet="172.16.0.0/24" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
 ```
 
 ```sh
