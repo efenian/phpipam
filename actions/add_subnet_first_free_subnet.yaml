@@ -1,0 +1,78 @@
+# phpipam/actions/add_subnet_first_free_subnet.yaml
+---
+name: add_subnet_first_free_subnet
+runner_type: "python-script"
+description: "add first free subnet to phpipam"
+enabled: true
+entry_point: add_subnet_first_free_subnet.py
+parameters:
+    master_subnet:
+        type: string
+        description: "master subnet cidr"
+        required: true
+    mask:
+        type: string
+        description: "subnet mask"
+        required: true
+    description:
+        type: string
+        description: "description for the subnet"
+    section:
+        type: string
+        description: "section name"
+        required: true
+    vlan:
+        type: string
+        description: "vlan number"
+    l2domain:
+        type: string
+        description: "layer 2 domain"
+    show_name:
+        type: boolean
+        description: "show by name instead of subnet"
+        default: false
+    device:
+        type: string
+        description: "device name"
+    operator_permissions:
+        type: string
+        description: "operator permissions"
+        required: true
+        enum:
+            - "na"
+            - "ro"
+            - "rw"
+            - "rwa"
+    group_permissions:
+        type: string
+        description: "group permissions"
+        required: true
+        enum:
+            - "na"
+            - "ro"
+            - "rw"
+            - "rwa"
+    ping_subnet:
+        type: boolean
+        description: "ping sweep subnet or not"
+        default: false
+    discover_subnet:
+        type: boolean
+        description: "discover new hosts in subnet or not"
+        default: false
+    scan_agent:
+        type: string
+        description: "scan agent id"
+    full:
+        type: boolean
+        description: "mark subnet as full"
+        default: false
+    vrf:
+        type: string
+        description: "the vrf for this subnet"
+    location:
+        type: string
+        description: "the location for this subnet"
+    threshold:
+        type: integer
+        description: "alterting threshold"
