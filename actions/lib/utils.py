@@ -24,7 +24,8 @@ def check_list(t_list='', t_item='', t_string=''):
 def get_tools_location_id(ipam=None, name=None):
     locations_api = ToolsLocationsApi(phpipam=ipam)
 
-    locationlist = (locations_api.list_tools_locations())['data']
+    apiresult = locations_api.list_tools_locations()
+    locationlist = apiresult['data'] if 'data' in apiresult else []
     location = [x for x in locationlist if x['name'] == name]
 
     check_list(t_list=location, t_item=name, t_string='location')
@@ -35,7 +36,8 @@ def get_tools_location_id(ipam=None, name=None):
 def get_tools_rack_id(ipam=None, name=None):
     racks_api = ToolsRacksApi(phpipam=ipam)
 
-    racklist = (racks_api.list_tools_racks())['data']
+    apiresult = racks_api.list_tools_racks()
+    racklist = apiresult['data'] if 'data' in apiresult else []
     rack = [x for x in racklist if x['name'] == name]
 
     check_list(t_list=rack, t_item=name, t_string='rack')
@@ -46,7 +48,8 @@ def get_tools_rack_id(ipam=None, name=None):
 def get_tools_devicetype_id(ipam=None, name=None):
     devicetypes_api = ToolsDeviceTypesApi(phpipam=ipam)
 
-    devicetypelist = (devicetypes_api.list_tools_devicetypes())['data']
+    apiresult = devicetypes_api.list_tools_devicetypes()
+    devicetypelist = apiresult['data'] if 'data' in apiresult else []
     dtype = [x for x in devicetypelist if x['tname'] == name]
 
     check_list(t_list=dtype, t_item=name, t_string='device type')
@@ -57,7 +60,8 @@ def get_tools_devicetype_id(ipam=None, name=None):
 def get_tools_device_id(ipam=None, name=None):
     devices_api = ToolsDevicesApi(phpipam=ipam)
 
-    devicelist = (devices_api.list_tools_devices())['data']
+    apiresult = devices_api.list_tools_devices()
+    devicelist = apiresult['data'] if 'data' in apiresult else []
     device = [x for x in devicelist if x['hostname'] == name]
 
     check_list(t_list=device, t_item=name, t_string='device')
@@ -68,7 +72,8 @@ def get_tools_device_id(ipam=None, name=None):
 def get_section_id(ipam=None, name=None):
     sections_api = SectionsApi(phpipam=ipam)
 
-    sectionlist = (sections_api.list_sections())['data']
+    apiresult = sections_api.list_sections()
+    sectionlist = apiresult['data'] if 'data' in apiresult else []
     sect = [x for x in sectionlist if x['name'] == name]
 
     check_list(t_list=sect, t_item=name, t_string='section name')
@@ -79,7 +84,8 @@ def get_section_id(ipam=None, name=None):
 def get_l2domain_id(ipam=None, name=None):
     l2domains_api = L2DomainsApi(phpipam=ipam)
 
-    l2domlist = (l2domains_api.list_l2domains())['data']
+    apiresult = l2domains_api.list_l2domains()
+    l2domlist = apiresult['data'] if 'data' in apiresult else []
     l2dom = [x for x in l2domlist if x['name'] == name]
 
     check_list(t_list=l2dom, t_item=name, t_string='l2domain name')
@@ -90,7 +96,8 @@ def get_l2domain_id(ipam=None, name=None):
 def get_vlan_id(ipam=None, name=None, number=None, l2domain_id=None):
     vlans_api = VlansApi(phpipam=ipam)
 
-    vlanlist = (vlans_api.list_vlans())['data']
+    apiresult = vlans_api.list_vlans()
+    vlanlist = apiresult['data'] if 'data' in apiresult else []
 
     if number and l2domain_id:
         vlan = [x for x in vlanlist
@@ -114,8 +121,8 @@ def get_subnet_id(ipam=None, name=None, cidr=None, section_id=None):
     subnets_api = SubnetsApi(phpipam=ipam)
 
     if cidr and section_id:
-        searchresult = subnets_api.list_subnets_cidr(subnet_cidr=cidr)
-        subnetlist = searchresult['data'] if 'data' in searchresult else []
+        apiresult = subnets_api.list_subnets_cidr(subnet_cidr=cidr)
+        subnetlist = apiresult['data'] if 'data' in apiresult else []
         subnet = [x for x in subnetlist if x['sectionId'] == section_id]
 
         check_list(t_list=subnet, t_item=cidr, t_string='subnet cidr')
@@ -126,7 +133,8 @@ def get_subnet_id(ipam=None, name=None, cidr=None, section_id=None):
 def get_vrf_id(ipam=None, name=None):
     vrfs_api = VRFsApi(phpipam=ipam)
 
-    vrflist = (vrfs_api.list_vrfs())['data']
+    apiresult = vrfs_api.list_vrfs()
+    vrflist = apiresult['data'] if 'data' in apiresult else []
     vrf = [x for x in vrflist if x['name'] == name]
 
     check_list(t_list=vrf, t_item=name, t_string='VRF')
@@ -137,7 +145,8 @@ def get_vrf_id(ipam=None, name=None):
 def get_tag_id(ipam=None, name=None):
     tags_api = ToolsTagsApi(phpipam=ipam)
 
-    taglist = (tags_api.list_tools_tags())['data']
+    apiresult = tags_api.list_tools_tags()
+    taglist = apiresult['data'] if 'data' in apiresult else []
     tag = [x for x in taglist if x['type'] == name]
 
     check_list(t_list=tag, t_item=name, t_string='tag')
@@ -148,8 +157,8 @@ def get_tag_id(ipam=None, name=None):
 def get_address_id(ipam=None, ip_addr=None, subnet_id=None):
     subnets_api = SubnetsApi(phpipam=ipam)
 
-    addresslist = (subnets_api.list_subnet_addresses(
-        subnet_id=subnet_id))['data']
+    apiresult = subnets_api.list_subnet_addresses(subnet_id=subnet_id)
+    addresslist = apiresult['data'] if 'data' in apiresult else []
 
     addr = [x for x in addresslist if x['ip'] == ip_addr]
 
