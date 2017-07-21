@@ -1,10 +1,10 @@
-# phpipam/actions/add_subnet_first_free_subnet.yaml
+# phpipam/actions/add_subnet_first_free.yaml
 ---
-name: add_subnet_first_free_subnet
+name: add_subnet_first_free
 runner_type: "python-script"
 description: "add first free subnet to phpipam"
 enabled: true
-entry_point: add_subnet_first_free_subnet.py
+entry_point: add_subnet_first_free.py
 parameters:
     master_subnet:
         type: string

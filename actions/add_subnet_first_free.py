@@ -12,7 +12,7 @@ from lib.utils import get_vrf_id
 from lib.utils import get_tools_location_id
 
 
-class AddSubnetFirstFreeSubnet(BaseAction):
+class AddSubnetFirstFree(BaseAction):
     """ Stackstorm Python Runner """
     def run(self, master_subnet, mask,
             operator_permissions, group_permissions, **kwargs):
@@ -79,7 +79,7 @@ class AddSubnetFirstFreeSubnet(BaseAction):
         kwargs['discover_subnet'] = int(kwargs['discover_subnet'])
         kwargs['full'] = int(kwargs['full'])
 
-        new_subnet = subnets_api.add_subnet_first_free_subnet(
+        new_subnet = subnets_api.add_subnet_first_free(
             subnet_id=master_subnet_id,
             mask=mask,
             permissions=json.dumps(permissions),

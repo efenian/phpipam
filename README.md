@@ -141,7 +141,7 @@ st2 run phpipam.add_subnet subnet="172.16.0.2" mask="31" section="Customers" des
 ```
 
 ```sh
-st2 run phpipam.add_subnet_first_free_subnet master_subnet="172.16.0.0/24" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
+st2 run phpipam.add_subnet_first_free master_subnet="172.16.0.0/24" mask="31" section="Customers" description="RFC1918 Space" group_permissions="ro" operator_permissions="rw"
 ```
 
 ```sh
@@ -177,11 +177,11 @@ st2 run phpipam.get_subnet_first_free_address section="Customers" subnet_cidr="1
 #### Add/List/Remove IP address(es):
 
 ```sh
-st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1" hostname="TE-1/0/1.CoreSwitch" description="TE-1/0/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f1" owner="infra" device="CoreSwitch" note="test"
+st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.1" hostname="ETH-1/1.SPINE1.DC2" description="ETH-1/1" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f1" owner="INFRA" device="SPINE1.DC2" note="SPINE1-LEAF1"
 ```
 
 ```sh
-st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2" hostname="TE-1/0/2.CoreSwitch" description="TE-1/0/2" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="infra" device="CoreSwitch" note="test"
+st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2" hostname="ETH-1/2.SPINE1.DC2" description="ETH-1/2" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f2" owner="INFRA" device="SPINE1.DC2" note="SPINE1-LEAF2"
 ```
 
 ```sh
