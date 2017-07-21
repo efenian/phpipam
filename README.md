@@ -59,8 +59,8 @@ st2 run phpipam.del_rack name="R2.DC2"
 #### Add/List/Remove device(s):
 
 ```sh
-st2 run phpipam.add_device hostname="SPINE1.DC2" ip_addr="198.18.0.1" devicetype="Switch" rack="R1.DC2" rack_size="2" rack_start="40" location="DC2" sections="Customers;IPv6"
-st2 run phpipam.add_device hostname="LEAF1.DC2" ip_addr="198.18.0.1" devicetype="Switch" rack="R1.DC2" rack_size="2" rack_start="38" location="DC2" sections="Customers;IPv6"
+st2 run phpipam.add_device hostname="SPINE1.DC2" ip_addr="198.18.0.1" devicetype="Switch" rack="R1.DC2" rack_size="2" rack_start="41" location="DC2" sections="Customers;IPv6"
+st2 run phpipam.add_device hostname="LEAF1.DC2" ip_addr="198.18.0.1" devicetype="Switch" rack="R1.DC2" rack_size="2" rack_start="39" location="DC2" sections="Customers;IPv6"
 ```
 
 ```sh
