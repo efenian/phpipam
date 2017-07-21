@@ -16,3 +16,4 @@
     api_verify_ssl:
         description: "Disable SSL verification for self signed certificates"
         type: "boolean"
+        default: true
