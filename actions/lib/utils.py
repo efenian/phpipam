@@ -114,7 +114,8 @@ def get_subnet_id(ipam=None, name=None, cidr=None, section_id=None):
     subnets_api = SubnetsApi(phpipam=ipam)
 
     if cidr and section_id:
-        subnetlist = (subnets_api.list_subnets_cidr(subnet_cidr=cidr))['data']
+        searchresult = subnets_api.list_subnets_cidr(subnet_cidr=cidr)
+        subnetlist = searchresult['data'] if 'data' in searchresult else []
         subnet = [x for x in subnetlist if x['sectionId'] == section_id]
 
         check_list(t_list=subnet, t_item=cidr, t_string='subnet cidr')

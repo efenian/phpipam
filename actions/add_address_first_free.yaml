@@ -1,0 +1,49 @@
+# phpipam/actions/add_address_first_free.yaml
+---
+name: add_address_first_free
+runner_type: "python-script"
+description: "add address to phpipam"
+enabled: true
+entry_point: add_address_first_free.py
+parameters:
+    description:
+        type: string
+        description: "description for the address"
+    hostname:
+        type: string
+        description: "hostname"
+    subnet_cidr:
+        type: string
+        description: "subnet CIDR notation"
+        required: true
+    section:
+        type: string
+        description: "section name"
+        required: true
+    is_gateway:
+        type: string
+        description: "is a gateway"
+        required: true
+        default: "0"
+    tag:
+        type: string
+        description: "tag"
+        required: true
+        default: "Used"
+        enum:
+            - "Offline"
+            - "Used"
+            - "Reserved"
+            - "DHCP"
+    mac:
+        type: string
+        description: "address MAC"
+    owner:
+        type: string
+        description: "address owner"
+    device:
+        type: string
+        description: "address sevice"
+    note:
+        type: string
+        description: "address note"

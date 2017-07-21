@@ -185,6 +185,10 @@ st2 run phpipam.add_address section="Customers" subnet_cidr="10.10.1.0/24" ip_ad
 ```
 
 ```sh
+st2 run phpipam.add_address_first_free section="Customers" subnet_cidr="10.10.1.0/24" hostname="ETH-1/3.SPINE1.DC2" description="ETH-1/3" is_gateway="0" tag="Used" mac="aa:bb:cc:dd:ee:f3" owner="INFRA" device="SPINE1.DC2" note="SPINE1-LEAF3"
+```
+
+```sh
 st2 run phpipam.list_subnet_addresses section="Customers" subnet_cidr="10.10.1.0/24"
 ```
 
@@ -196,10 +200,14 @@ st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_ad
 st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.2"
 ```
 
+```sh
+st2 run phpipam.del_address section="Customers" subnet_cidr="10.10.1.0/24" ip_addr="10.10.1.7"
+```
+
 #### Add/List/Remove VRF:
 
 ```sh
-st2 run phpipam.add_vrf name="TENANT1" rd="100:100" description="Core VRF" sections="Customers;IPv6"
+st2 run phpipam.add_vrf name="TENANT1" rd="100:100" description="LEAF VRF" sections="Customers;IPv6"
 ```
 
 ```sh
