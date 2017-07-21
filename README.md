@@ -5,7 +5,7 @@ Stackstorm pack for {php}IPAM
 Here is what you need:
 
   - [Stackstorm](https://docs.stackstorm.com/install/index.html#installation)
-  - [{php}IPAM 1.3](http://phpipam.net/documents/download-phpipam/) (you can try my [vagrant](https://github.com/efenian/phpipamvagrant) as well)
+  - [{php}IPAM 1.3](http://phpipam.net/documents/download-phpipam/) (you can try my [vagrant](https://github.com/efenian/vagrant-phpipam) as well)
 
 You will have to enable the phpipam API and have mod_rewrite working.
 
