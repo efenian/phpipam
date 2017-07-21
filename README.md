@@ -29,6 +29,7 @@ phpipam API app id is set to app in this case
 #### Add/List/Remove location(s):
 
 ```sh
+st2 run phpipam.add_location name="SV2" address="1350 Duane Avenue, Santa Clara, CA 95054"
 st2 run phpipam.add_location name="DC2" address="21715 Filigree Court, Ashburn, VA 20147"
 ```
 
@@ -37,13 +38,14 @@ st2 run phpipam.list_locations
 ```
 
 ```sh
-st2 run phpipam.del_location name="DC2"
+st2 run phpipam.del_location name="SV2"
 ```
 
 #### Add/List/Remove rack(s):
 
 ```sh
-st2 run phpipam.add_rack name="R1" size=42 location="DC2"
+st2 run phpipam.add_rack name="R1.DC2" size=42 location="DC2"
+st2 run phpipam.add_rack name="R2.DC2" size=42 location="DC2"
 ```
 
 ```sh
@@ -51,13 +53,13 @@ st2 run phpipam.list_racks
 ```
 
 ```sh
-st2 run phpipam.del_rack name="R1"
+st2 run phpipam.del_rack name="R2.DC2"
 ```
 
 #### Add/List/Remove device(s):
 
 ```sh
-st2 run phpipam.add_device hostname="VDX-6740-RB1" ip_addr="198.18.0.1" devicetype="Switch" model="VDX-6740T" vendor="Brocade" sections="Customers;IPv6"
+st2 run phpipam.add_device hostname="SPINE1.DC2" ip_addr="198.18.0.1" devicetype="Switch" rack="R1.DC2" rack_size="2" rack_start="30" location="DC2" sections="Customers;IPv6"
 ```
 
 ```sh
@@ -65,13 +67,14 @@ st2 run phpipam.list_devices
 ```
 
 ```sh
-st2 run phpipam.del_device hostname="VDX-6740-RB1"
+st2 run phpipam.del_device hostname="SPINE1.DC2"
 ```
 
 #### Add/List/Remove Layer 2 domain(s):
 
 ```sh
-st2 run phpipam.add_l2domain name="dc1" description="my new datacenter"
+st2 run phpipam.add_l2domain name="SV2" description="santa clara"
+st2 run phpipam.add_l2domain name="DC2" description="ashburn"
 ```
 
 ```sh
@@ -79,13 +82,13 @@ st2 run phpipam.list_l2domains
 ```
 
 ```sh
-st2 run phpipam.del_l2domain name="dc1"
+st2 run phpipam.del_l2domain name="SV2"
 ```
 
 #### Add/List/Remove VLAN(s):
 
 ```sh
-st2 run phpipam.add_vlan name="tenant1" number="100" description="my new tenant vlan" l2domain="default"
+st2 run phpipam.add_vlan name="tenant1" number="100" description="my new tenant vlan" l2domain="DC2"
 ```
 
 ```sh
@@ -93,7 +96,7 @@ st2 run phpipam.list_vlans
 ```
 
 ```sh
-st2 run phpipam.del_vlan number="100" l2domain="default"
+st2 run phpipam.del_vlan number="100" l2domain="DC2"
 ```
 
 #### Add/List/Remove Section:
