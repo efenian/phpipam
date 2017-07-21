@@ -119,7 +119,7 @@ st2 run phpipam.del_section name="child"
 ```
 
 ```sh
- st2 run phpipam.del_section name="parent"
+st2 run phpipam.del_section name="parent"
 ```
 
 #### Add/List/Remove Subnet(s):
