@@ -4,6 +4,6 @@ description: A phpipam pack containing actions for IP address management
 keywords:
     - php
     - ipam
-version: 0.1.3
+version: 1.3.0
 author: Eric Donohue
 email: edonohue@brocade.com
